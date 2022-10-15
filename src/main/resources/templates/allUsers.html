@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AllUsersPage</title>
+    <style>
+        td,th {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center">
+    <H1>There are all our Users</H1>
+</div>
+<br><br>
+<a href="/">Return to start page</a>
+<br><br>
+<table style="width: 100%">
+    <tr>
+        <th>User id</th>
+        <th>User name</th>
+        <th>User surname</th>
+        <th>User age</th>
+        <th>User email</th>
+        <th>User Roles</th>
+        <th>Update/Delete user</th>
+    </tr>
+
+    <tr style="text-align: center" th:each = "user : ${users_list}">
+        <td>
+            <span th:text = "${user.getId}"></span>
+            <br><br>
+        </td>
+        <td>
+            <span th:text = "${user.getName}"></span>
+            <br><br>
+        </td>
+        <td>
+            <span th:text = "${user.getSurname}"></span>
+            <br><br>
+        </td>
+        <td>
+            <span th:text = "${user.getAge}"></span>
+            <br><br>
+        </td>
+        <td>
+            <span th:text = "${user.getEmail}"></span>
+            <br><br>
+        </td>
+        <td>
+            <div th:each="role : ${user.getRoles()}">
+                <span th:text="${role.getName()}">role</span>
+            </div>
+            <br><br>
+        </td>
+        <td>
+            <br>
+            <div>
+                <form th:action="@{/admin/allUsers/{id}/edit(id = ${user.getId()})}">
+                <input type="submit" value="UPDATE USER "/>
+                </form>
+            </div>
+            <br>
+            <div>
+                <form th:method="DELETE" th:action="@{/admin/allUsers/delete/{id}(id = ${user.getId()})}" >
+                    <input type="submit" value="DELETE USER "/>
+                </form>
+            </div>
+            <br>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+<H1 style="text-align: center">Welcome , lets do something with our Users :D</H1>
+<br><br><br>
+<br><br>
+<a href="/logout">Выйти</a>
+<br><br>
+<div style="text-align: center">
+    <a href="admin/allUsers">Lets see all Users</a>
+    <br><br>
+    <a href="admin/createUser">Lets create new User</a>
+    <br><br>
+    <br><br><br>
+    <label >Your name : </label><br>
+    <span th:text="${admin.getName()}"></span><br>
+    <br><br>
+    <label>Your surname : </label><br>
+    <span th:text="${admin.getSurname()}"></span><br>
+    <br><br>
+    <label>Your age :</label><br>
+    <span th:text="${admin.getAge()}"></span><br>
+    <br><br>
+    <label>Your email : </label><br>
+    <span th:text="${admin.getEmail()}" ></span><br>
+    <br><br>
+    <label>Your role : </label><br>
+    <div th:each="role : ${admin.getRoles()}">
+        <span th:text="${role.getName()}"></span><br>
+    </div>
+
+</div>
+</body>
+</html>

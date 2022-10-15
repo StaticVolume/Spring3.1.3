@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+</head>
+<body>
+<br><br><br>
+<br><br>
+<a href="/logout">Выйти</a>
+<br><br>
+<div style="text-align: center">
+  <label >Your name : </label><br>
+  <span th:text="${user.getName()}"></span><br>
+  <br><br>
+  <label>Your surname : </label><br>
+  <span th:text="${user.getSurname()}"></span><br>
+  <br><br>
+  <label>Your age :</label><br>
+  <span th:text="${user.getAge()}"></span><br>
+  <br><br>
+  <label>Your email : </label><br>
+  <span th:text="${user.getEmail()}" ></span><br>
+  <br><br>
+  <label>Your role : </label><br>
+  <div th:each="role : ${user.getRoles()}">
+    <span th:text="${role.getName()}"></span><br>
+    <br><br>
+  </div>
+</div>
+</body>
+</html>

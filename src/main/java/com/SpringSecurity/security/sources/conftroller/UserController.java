@@ -6,9 +6,11 @@ import com.SpringSecurity.security.sources.model.User;
 import com.SpringSecurity.security.sources.service.RoleService;
 import com.SpringSecurity.security.sources.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,47 +62,27 @@ public class UserController {
     public String adminPage(Principal principal, Model model) {
         User admin = userService.getUserByName(principal.getName());
         model.addAttribute("admin", admin);
-        return "admin";
-    }
-
-    @GetMapping("admin/allUsers")
-    public String printAllUsers(Model model) {
         model.addAttribute("users_list", userService.getAllUsers());
-        return "/allUsers";
-    }
-
-    @RequestMapping("admin/createUser")
-    public String createUserForm(Model model) {
         model.addAttribute("roles_from_service", enumRoles.getSetRoles());
-        model.addAttribute("user",new User());
-        return "/createUser";
+        model.addAttribute("emptyUser",new User());
+        return "admin";
     }
 
     @PostMapping("admin/createUser")
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "createUser";
-        }
         userService.addUser(user);
-        return "redirect:/admin/allUsers";
+        return "redirect:/admin";
     }
 
-    @GetMapping("admin/allUsers/{id}/edit")
-    public String editUserForm(Model model, @PathVariable("id") long id) {
-        model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("role_from_service", enumRoles.getSetRoles());
-        return "/editUser";
-    }
-
-    @PatchMapping("/admin/allUsers/{id}")
-    public String updateUser(@ModelAttribute("user") User user,@PathVariable("id") long id ) {
+    @PatchMapping("admin/edit")
+    public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
-        return "redirect:/admin/allUsers";
+        return "redirect:/admin";
     }
 
-    @DeleteMapping("admin/allUsers/delete/{id}")
-    public String deleteUser( @PathVariable("id") long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin/allUsers";
+    @DeleteMapping("admin/delete")
+    public String deleteUser(@ModelAttribute("DeleteUser") User user) {
+        userService.deleteUserById(user.getId());
+        return "redirect:/admin";
     }
 }

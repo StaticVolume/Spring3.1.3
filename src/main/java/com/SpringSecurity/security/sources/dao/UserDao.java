@@ -11,12 +11,14 @@ public interface UserDao {
 
     public List<User> getAllUsersFromDatabase();
 
-    public void deleteUserFromDatabase(long id);
+    public void deleteUserFromDatabase(User user);
 
     public Optional<User> getUserByIdFromDatabase(long id);
 
      public void updateUserInDatabase(User user);
 
     Optional<User> loadUserByUsername(String username);
+
+    public void deleteUserFromDatabaseById(long id);
 }
 

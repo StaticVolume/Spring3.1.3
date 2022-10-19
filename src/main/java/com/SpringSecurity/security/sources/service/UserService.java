@@ -13,7 +13,8 @@ public interface UserService {
     public User getUser(long id);
 
     public void updateUser(User user);
-    public void deleteUser(long id);
+    public void deleteUserById(long id);
+    public void deleteUser(User user);
     public User getUserByName(String name);
 }
 

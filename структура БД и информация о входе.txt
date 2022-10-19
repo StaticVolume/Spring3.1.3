@@ -35,3 +35,9 @@ values (ROLE_ADMIN);
 
 insert into security_schema.users_roles 
 values (1,1);
+
+
+
+
+# Информация о входе
+Вход на страницу реализован с помошью логина(имени пользователя) и пароля.
